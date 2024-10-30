@@ -1,0 +1,200 @@
+#chart-container {
+  flex: 1;
+  max-width: 100%;
+  width: 100%;
+}
+
+body {
+    background-color: #1e2130;
+  color: #f3f5f4;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  height: 100vh;
+  max-width: 100% !important;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+#big-app-container {
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6rem;
+}
+
+#main-dashboard {
+  display: flex;
+  flex-direction: row;
+  width: 100%
+}
+
+.custom-tabs {
+  background-color: #1E2130;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  height: fit-content;
+  cursor: pointer;
+}
+
+#analytic-tab.custom-tab, #realtime-tab.custom-tab {
+  background-color: #161a28;
+  letter-spacing: 1px;
+  color: inherit;
+  border: 0;
+  border-bottom: #1E2130 solid 4px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 18px;
+}
+
+#analytic-tab.custom-tab--selected, #realtime-tab.custom-tab--selected {
+  border-bottom: #91dfd2 solid 4px !important;
+}
+
+#menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-right: #1E2130 solid 0.8rem;
+  flex: 1 1;
+  padding: 2rem;
+  max-width: 25%;
+}
+
+.date-time-container {
+  max-width: 100%;
+  padding: 1rem;
+}
+
+#analytic_realtime_selector {
+    flex-direction: row;
+}
+
+#station_dropdown {
+  color: white;
+  background: #242633 !important;
+}
+.menu-selector{
+    width: 100%;
+}
+
+.main-charts-class{
+  max-width: 100%;
+}
+
+.led-display {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+}
+.banner {
+  height: fit-content;
+  background-color: #1e2130;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #4B5460;
+  padding: 1rem;
+  width: 100%;
+}
+
+.banner h5 {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.banner h6 {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.banner Img {
+    height: 3rem;
+  }
+
+#banner-logo button {
+    margin-right: 10px;
+    height: 3rem;
+    line-height: 3rem;
+    color: #95969A;
+  }
+
+#banner-logo button:hover {
+  color: #92e0d3 !important;
+  border-color: whitesmoke;
+}
+
+#rent_return_live {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  border-top: #1E2130 solid 0.8rem;
+}
+
+#time_graph_dropdown_division{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+#geo_graph_main{
+    max-width: 75%
+    height: 40%;
+}
+
+#cumulative-occurrence-selector {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+}
+
+.DateInput_input DateInput_input_1 input{
+  background-color: #242633;
+  color: #242633;
+}
+
+
+.Select-control, .Select-multi-value-wrapper, .Select-menu-outer div{
+  background-color: #242633;
+}
+
+/*Dropdown items*/
+.Select-control, .Select, .Select-value-label, .Select-clear-zone {
+  color: white;
+}
+
+
+/*Dropdown items*/
+.Select-menu-outer {
+  background-color: #242633;
+  border: 1px solid darkgray !important;
+}
+
+/*Dropdown items*/
+.Select-menu-outer div:hover {
+  background-color: rgba(36, 38, 51, 0.5) !important;
+  cursor: pointer;
+}
+
+/*Dropdown arrow + delete button*/
+.Select-control, .Select-control > span {
+  color: white;
+  background: #242633 !important;
+}
