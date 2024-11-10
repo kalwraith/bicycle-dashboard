@@ -16,16 +16,16 @@ class GeoChart(ChartBase):
                 dcc.Graph(
                     id="geo_graph_chart",
                     figure=px.scatter_mapbox(DataLoader.get_default_df(),
-                                             lat='YCOR',
-                                             lon='XCOR',
-                                             size='RENT_CNT',
+                                             lat='stt_lttd',
+                                             lon='stt_lgtd',
+                                             size='rent_cnt',
                                              mapbox_style='open-street-map',
-                                             hover_name='STT_NM',
-                                             hover_data=['RENT_CNT'],
+                                             hover_name='stt_nm',
+                                             hover_data=['rent_cnt'],
                                              zoom=11,
                                              height=700,
-                                             animation_frame='EVN_TS',
-                                             animation_group='RENT_CNT'
+                                             animation_frame='crt_dttm',
+                                             animation_group='rent_cnt'
                                              ).update_layout(
                         margin={"r": 0, "t": 0, "l": 0, "b": 0},
                     ),
@@ -44,17 +44,17 @@ class GeoChart(ChartBase):
                 dcc.Graph(
                     id="geo_graph_chart",
                     figure=px.scatter_mapbox(filtered_df,
-                                             lat='YCOR',
-                                             lon='XCOR',
+                                             lat='stt_lttd',
+                                             lon='stt_lgtd',
                                              size=yaxis,
                                              mapbox_style='open-street-map',
-                                             hover_name='STT_NM',
-                                             hover_data=[yaxis, 'EVN_TS'],
+                                             hover_name='stt_nm',
+                                             hover_data=[yaxis, 'crt_dttm'],
                                              zoom=11,
                                              height=700,
                                              color_continuous_scale=[[0, 'green'], [1.0, 'red']],
                                              color=yaxis,
-                                             animation_frame='EVN_TS',
+                                             animation_frame='crt_dttm',
                                              animation_group=yaxis
                                              ).update_layout(
                                                 margin={"r":0,"t":0,"l":0,"b":0},
@@ -64,18 +64,18 @@ class GeoChart(ChartBase):
                 )
             ]
         elif tab == 'tab-realtime':
-            filtered_df = filtered_df[filtered_df['EVN_TS'] == filtered_df['EVN_TS'].max()]
+            filtered_df = filtered_df[filtered_df['crt_dttm'] == filtered_df['crt_dttm'].max()]
 
             return [
                 self.generate_section_banner("따릉이 대여/반납 현황 Map"),
                 dcc.Graph(
                     id="geo_graph_chart",
                     figure=px.scatter_mapbox(filtered_df,
-                                             lat='YCOR',
-                                             lon='XCOR',
+                                             lat='stt_lttd',
+                                             lon='stt_lgtd',
                                              size=yaxis,
                                              mapbox_style='open-street-map',
-                                             hover_name='STT_NM',
+                                             hover_name='stt_nm',
                                              hover_data=[yaxis],
                                              zoom=11,
                                              height=700,

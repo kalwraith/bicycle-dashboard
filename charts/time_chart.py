@@ -64,12 +64,12 @@ class TimeChart(ChartBase):
     def generate_time_chart_figure(self, filtered_df, yaxis):
         figure_dict = {'data': []}
         pd.set_option('display.max_columns', None)
-        for stt_nm in filtered_df['STT_NM'].unique().tolist():
-            if yaxis.endswith('CUM'):
+        for stt_nm in filtered_df['stt_nm'].unique().tolist():
+            if yaxis.endswith('cum'):
                 figure_dict['data'].append(
                     {
-                        "x": filtered_df[filtered_df['STT_NM'] == stt_nm]['EVN_TS'].tolist(),
-                        "y": filtered_df[filtered_df['STT_NM'] == stt_nm][yaxis].tolist(),
+                        "x": filtered_df[filtered_df['stt_nm'] == stt_nm]['crt_dttm'].tolist(),
+                        "y": filtered_df[filtered_df['stt_nm'] == stt_nm][yaxis].tolist(),
                         "mode": "lines+markers",
                         'fill': "tozeroy",
                         "name": stt_nm
@@ -78,8 +78,8 @@ class TimeChart(ChartBase):
             else:
                 figure_dict['data'].append(
                     {
-                        "x": filtered_df[filtered_df['STT_NM'] == stt_nm]['EVN_TS'].tolist(),
-                        "y": filtered_df[filtered_df['STT_NM'] == stt_nm][yaxis].tolist(),
+                        "x": filtered_df[filtered_df['stt_nm'] == stt_nm]['crt_dttm'].tolist(),
+                        "y": filtered_df[filtered_df['stt_nm'] == stt_nm][yaxis].tolist(),
                         "mode": "lines+markers",
                         "name": stt_nm
                     }

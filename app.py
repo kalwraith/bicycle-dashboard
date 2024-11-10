@@ -1,5 +1,4 @@
 from dash import Dash, Output, Input, State, callback_context
-import pandas as pd
 from datetime import datetime
 from layout import Layout
 from charts.time_chart import TimeChart
@@ -17,7 +16,7 @@ app = Dash(__name__,suppress_callback_exceptions=True)
 
 layout = Layout(app)
 app.layout = layout.main_layout()
-loaded_df = pd.DataFrame()
+loaded_df = DataLoader.get_default_df()
 
 
 @app.callback(
@@ -95,19 +94,19 @@ def update_led(intervals):
 )
 def generate_all_charts(is_stt_sel_all, stt, rent_return, is_occurrence, geo_selected_data, geo_click_data, tab, intervals, is_date_time_changed, date, time):
     global loaded_df
+    cur_date = datetime.now().strftime('%Y-%m-%d')
     triggered_nm = [p["prop_id"] for p in callback_context.triggered][0]
     triggered_id = triggered_nm.split('.')[0]
 
     # 실시간 현황에서 1분 update 발생 또는 분석탭에서 실시간 탭으로 변경했을 때 당일 기준으로 데이터 reload
     if (triggered_id == 'update-every-60sec' or triggered_id == 'tab-selector') and tab == 'tab-realtime':
-        cur_date = datetime.now().strftime('%Y-%m-%d')
         loaded_df = data_loader.load_data(cur_date)
 
     # 분석탭에서 날짜를 변경했을 경우 변경한 날짜로 데이터 reload
     elif triggered_id == 'is-changed-date-time-store' and is_date_time_changed == 'date':
         loaded_df = data_loader.load_data(date)
 
-    all_stt_nm_lst = loaded_df['STT_NM'].unique().tolist()
+    all_stt_nm_lst = loaded_df['stt_nm'].unique().tolist()
 
     # 입력 파라미터에 따라 dataframe 가공
     filtered_df, yaxis, sel_stt_nm_lst, stt_sel_all_return = data_loader.filter_data(loaded_df,

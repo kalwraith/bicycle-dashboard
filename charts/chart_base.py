@@ -8,14 +8,6 @@ class ChartBase:
         self.is_occurrence = True
         self.is_realtime = True
 
-    def get_df(self):
-        APP_PATH = str(pathlib.Path(__file__).parent.parent.resolve())
-        df = pd.read_csv(os.path.join(APP_PATH, os.path.join("data", "bicycle.csv"))).astype({'YMDH': 'string'})
-        df['EVN_TS'] = df['YMDH'].map(lambda x: datetime.strptime(x,'%Y%m%d%H'))
-        df['YMD'] = df['YMDH'].map(lambda x:x[:8])
-        df['HOUR'] = df['YMDH'].map(lambda x:x[-2:])
-
-        return df
 
     def generate_section_banner(self, title):
         return html.Div(className="section-banner", children=title)
