@@ -54,6 +54,18 @@ class Layout():
                             children=self.menu_selector.get_menu_container()
                             ),
                         html.Div(
+                            id="loadingbar",
+                            children=html.Img(src="assets/loadingbar.gif"),
+                            style={
+                                "display": "none",  # 기본적으로 숨김 상태
+                                "position": "fixed",
+                                "top": "50%",
+                                "left": "50%",
+                                "transform": "translate(-50%, -50%)",
+                                "zIndex": "1000",
+                            },
+                        ),
+                        html.Div(
                             id="chart-container",
                             children=[
                                 self.geo_chart.geo_graph(),

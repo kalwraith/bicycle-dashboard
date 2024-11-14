@@ -2,9 +2,8 @@ from datetime import datetime
 import pandas as pd
 import boto3
 import awswrangler as wr
-import platform
-import os
-import pathlib
+import os, pathlib
+
 
 AWS_USER_NM = 'py-dash'
 STG_BUCKET_NM = 's3://athena-query-result-hjkim'
@@ -15,15 +14,12 @@ class DataLoader():
         self.set_aws_key()
 
     def set_aws_key(self):
-        system = platform.system()
         home_path = os.path.expanduser('~')
         key_csv = f'{AWS_USER_NM}_accessKeys.csv'
-        if system == 'Darwin':
+        try:
             key_file = os.path.join(home_path,'Downloads',key_csv)
-        elif system == 'Windows':
-            key_file = os.path.join(home_path, 'Download',key_csv)
-        else:
-            raise Exception('OS 유형 확인 필요')
+        except:
+            raise Exception('키 파일 찾을 수 없음')
 
         key_df = pd.read_csv(key_file)
         self.access_key = key_df.iloc[0]['Access key ID']
@@ -38,8 +34,6 @@ class DataLoader():
     #     df['crt_dttm'] = df['ymdh'].map(lambda x: datetime.strptime(x, '%Y%m%d%H'))
     #     df['hh'] = pd.to_numeric(df['ymdh'].map(lambda x: x[-2:]))
     #
-    #     print(df)
-    #     print(df.dtypes)
     #     return df
 
     def load_data(self, ymd):
@@ -94,13 +88,11 @@ class DataLoader():
                     stt: list,
                     rent_return: str,
                     is_occurrence: bool,
-                    geo_selected_data: dict,
-                    geo_click_data: dict,
+                    geo_target: dict,
                     tab: str,
                     triggered_nm: str):
 
         triggered_id = triggered_nm.split('.')[0]
-        triggered_key = triggered_nm.split('.')[1]
         stt_sel_all_return = []
 
         if triggered_id == 'stations-select-all-checklist' and is_stt_sel_all:
@@ -113,12 +105,11 @@ class DataLoader():
         elif triggered_id == 'station_dropdown':
             stt_nm_lst = stt
 
-        elif triggered_id == 'geo_graph_chart' and triggered_key == 'selectedData':
-            stt_nm_lst = [item.get('hovertext') for item in geo_selected_data.get('points')]
-
-        elif triggered_id == 'geo_graph_chart' and triggered_key == 'clickData':
-            stt_nm_lst = [item.get('hovertext') for item in geo_click_data.get('points')]
-
+        elif triggered_id == 'geo_graph_chart':
+            if geo_target:
+                stt_nm_lst = [item.get('hovertext') for item in geo_target.get('points')]
+            else:
+                stt_nm_lst = []
         else:
             if is_stt_sel_all:
                 stt_nm_lst = loaded_df['stt_nm'].unique().tolist()
@@ -126,6 +117,7 @@ class DataLoader():
             else:
                 stt_nm_lst = stt
 
+        stt_nm_lst = stt_nm_lst if stt_nm_lst is not None else []
         loaded_df = loaded_df[loaded_df['stt_nm'].isin(stt_nm_lst)]
         if tab == 'tab-analytic':
             low_time = time[0] if time is not None else 0
@@ -135,6 +127,7 @@ class DataLoader():
         elif tab == 'tab-realtime':
             pass
 
+        yaxis = 'return_cnt'
         if not is_occurrence and rent_return == '대여':
             loaded_df = loaded_df[['stt_id', 'stt_nm', 'crt_dttm', 'stt_lttd', 'stt_lgtd', 'rent_cnt']].sort_values(by=['stt_id','stt_nm','crt_dttm'], ascending=True)
             loaded_df = loaded_df.reset_index(drop=True)
@@ -180,4 +173,4 @@ class DataLoader():
                              'hh': [0]})
 
 t = DataLoader()
-t.load_data('2024-11-08')
+#t.load_data('2024-11-08')

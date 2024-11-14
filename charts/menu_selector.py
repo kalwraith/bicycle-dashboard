@@ -14,9 +14,16 @@ class MenuSelector(ChartBase):
                     id='analytic-realtime-tabs',
                     className='menu-selector',
                     children=[
-                        dcc.Store(id='selected-date-store',storage_type="session"),
-                        dcc.Store(id='selected-time-store',storage_type="session"),
-                        dcc.Store(id='is-changed-date-time-store', storage_type="session"),
+                        dcc.Store(id='date-selector-store',storage_type="session"),
+                        dcc.Store(id='time-selector-store',storage_type="session"),
+                        dcc.Store(id='need-reload-data-store', storage_type="session"),
+                        dcc.Store(id='stations-select-all-checklist-store', storage_type="session"),
+                        dcc.Store(id='station_dropdown-store', storage_type="session"),
+                        dcc.Store(id='rent-return-selector-store', storage_type="session"),
+                        dcc.Store(id='cumul-occur-toggle-store', storage_type="session"),
+                        dcc.Store(id='geo_graph_chart-store', storage_type="session"),
+                        dcc.Store(id='trigger-nm-store', storage_type="session"),
+                        dcc.Store(id='loadingbar-store', storage_type="session"),
                         dcc.Interval(id='update-every-60sec', interval=60000),
                         dcc.Tabs(
                             id='tab-selector',
@@ -130,6 +137,14 @@ class MenuSelector(ChartBase):
                         html.Br(),
                         html.Br()
                     ]
+                ),
+                html.A(
+                    id='led-cur-date',
+                    style={'display':'none'},
+                ),
+                html.A(
+                    id='led-cur-time',
+                    style={'display': 'none'},
                 )
             )
 
@@ -172,7 +187,6 @@ class MenuSelector(ChartBase):
                         html.Br()
 
                     ]
-                    #children=[html.Br() for _ in range(12)]
                 )
             )]
 

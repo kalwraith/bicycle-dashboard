@@ -66,7 +66,7 @@ class TimeChart(ChartBase):
         pd.set_option('display.max_columns', None)
         for stt_nm in filtered_df['stt_nm'].unique().tolist():
             if yaxis.endswith('cum'):
-                figure_dict['data'].append(
+                    figure_dict['data'].append(
                     {
                         "x": filtered_df[filtered_df['stt_nm'] == stt_nm]['crt_dttm'].tolist(),
                         "y": filtered_df[filtered_df['stt_nm'] == stt_nm][yaxis].tolist(),
@@ -91,7 +91,8 @@ class TimeChart(ChartBase):
             "uirevision": 'test_col',
             "paper_bgcolor": "rgba(0,0,0,0)",
             "plot_bgcolor": "rgba(0,0,0,0)",
-            "legend": {"font": {"color": "darkgray"}, "orientation": "h", "x": 0, "y": 1.1},
+            #"legend": {"font": {"color": "darkgray"}, "orientation": "v", "x": 0, "y": 1.1},
+            "legend": {"font": {"color": "darkgray"}, "orientation": "v", "yanchor":"top","xanchor":"left","x": 1, "y": 1},
             "font": {"color": "darkgray"},
             "showlegend": True,
             "xaxis": {
